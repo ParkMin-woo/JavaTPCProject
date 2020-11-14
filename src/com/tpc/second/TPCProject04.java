@@ -9,8 +9,14 @@ import org.json.JSONTokener;
 public class TPCProject04 {
 	public static void main(String[] args) {
 		// String src = "C:\\JavaTPC\\newWorkspace\\JavaTPCProject\\src\\bookList.json";
-		String src = "bookList.json";
+		// C:\JavaTPC\newWorkspace\JavaTPCProject\src\kr\bit\file\bookList.json
+		// String src = "bookList.json";
+		// String src = "C:\\JavaTPC\\newWorkspace\\JavaTPCProject\\src\\kr\\bit\\file\\bookList.json";
+		// Thread.currentThread().getContextClassLoader().getResource(파일이름)
+		// System.out.println(ClassLoader.getSystemResource("bookList.json"));
+		String src = "/kr/bit/file/bookList.json";
 		// IO -> Stream
+		// InputStream is = TPCProject04.class.getClass().getResourceAsStream(src);
 		InputStream is = TPCProject04.class.getResourceAsStream(src);
 		System.out.println("is => " + is);
 		if(is == null) {
