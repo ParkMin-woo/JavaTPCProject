@@ -30,6 +30,7 @@ public class TPCProject06 {
 			System.out.print(member.get("address") + "\t");
 			System.out.println(member.get("phone"));
 		}
+		
 		/*
 		for(JSONObject member : memberArray) {
 			
