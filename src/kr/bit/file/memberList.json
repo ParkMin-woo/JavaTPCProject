@@ -1,0 +1,23 @@
+{"memberList": [
+  {
+    "address": "경북 포항시",
+    "gender": "M",
+    "phone": "01048015126",
+    "name": "박민우",
+    "age": 29
+  },
+  {
+    "address": "경기 수원시",
+    "gender": "F",
+    "phone": "01048768395",
+    "name": "강희애",
+    "age": 28
+  },
+  {
+    "address": "경기 하남시",
+    "gender": "M",
+    "phone": "01028723197",
+    "name": "정구",
+    "age": 49
+  }
+]}
