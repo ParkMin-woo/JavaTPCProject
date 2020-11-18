@@ -31,7 +31,7 @@ public class TPCProject07 {
 		try {
 			// 주소를 입력받는다.
 			System.out.print("주소를 입력하세요. : ");
-			// 주소는 reader에서 읽어들인다.
+			// 주소는 inputDataReader에서 읽어들인다.
 			// readLine() -> 주소를 한 줄 단위로 읽어들인다.
 			String inputAddress = inputDataReader.readLine();
 			// 주소에는 공백이 들어가 있는데, 공백은 컴퓨터 프로그램이 못읽어들인다.
