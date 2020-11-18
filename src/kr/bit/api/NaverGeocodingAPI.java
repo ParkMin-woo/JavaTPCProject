@@ -19,6 +19,7 @@ public class NaverGeocodingAPI {
 		// 네이버 클라우드 플랫폼을 만들었을 때의 클라이언트id, secret key를 담을 변수를 선언한다.
 		// 절대 이 부분은 git에 commit 후 merge시 공개하지 않는다.
 		// 개인정보 유출의 위험이 있기 때문이다.
+		
 		String clientId = "qrp9o1edcq";		// 네이버 클라우드 플랫폼에서 application 등록시 발급받은 클라이언트id
 		String clientSecretKey = "s7gz4k8Zt2rUhdDs3dWten40KltUOKgCD0EMqRkw";	// 네이버 클라우드 플랫폼에서 application 등록시 발급받은 secret key
 		
