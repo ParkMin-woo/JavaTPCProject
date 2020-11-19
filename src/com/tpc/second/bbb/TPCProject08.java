@@ -8,7 +8,10 @@ import kr.bit.api.NaverStaticMapAPI;
 
 public class TPCProject08 {
 	public static void main(String[] args) {
-		NaverGeocodingAPI geoCodingApi = new NaverGeocodingAPI();
+		String clientId = "qrp9o1edcq";		// 네이버 클라우드 플랫폼에서 application 등록시 발급받은 클라이언트id
+		String clientSecretKey = "s7gz4k8Zt2rUhdDs3dWten40KltUOKgCD0EMqRkw";	// 네이버 클라우드 플랫폼에서 application 등록시 발급받은 secret key
+		
+		NaverGeocodingAPI geoCodingApi = new NaverGeocodingAPI(clientId, clientSecretKey);
 		JSONArray addressJsonArray = geoCodingApi.geocodingAPI();
 		// System.out.println("addressJsonArray => " + addressJsonArray);
 		String x_point = "";
@@ -25,7 +28,7 @@ public class TPCProject08 {
 			y_point = (String) address.get("y");
 			roadAddress = (String) address.get("roadAddress");
 		}
-		NaverStaticMapAPI staticMapApi = new NaverStaticMapAPI();
+		NaverStaticMapAPI staticMapApi = new NaverStaticMapAPI(clientId, clientSecretKey);
 		staticMapApi.staticMapAPI(x_point, y_point, roadAddress);
 	}
 }

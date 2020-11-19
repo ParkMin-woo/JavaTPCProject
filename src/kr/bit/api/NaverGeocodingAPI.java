@@ -13,15 +13,41 @@ import org.json.JSONTokener;
 
 // TPCProject07에서 했던 프로젝트를 NaverGeocodingAPI라는 class를 새로 만들어서 옮김.
 public class NaverGeocodingAPI {
+	
+	private String clientId;
+	private String clientSecretKey;
+	private static final String NAVER_GEOCODING_API_URL = "https://naveropenapi.apigw.ntruss.com/map-geocode/v2/geocode?query=";
+	
+	/**
+	 * 
+	 */
+	public NaverGeocodingAPI() {
+		// TODO Auto-generated constructor stub
+	}
+
+	/**
+	 * @param clientId
+	 * @param clientSecretKey
+	 */
+	public NaverGeocodingAPI(String clientId, String clientSecretKey) {
+		super();
+		this.clientId = clientId;
+		this.clientSecretKey = clientSecretKey;
+	}
+
+
+
 	public JSONArray geocodingAPI() {
 		// 네이버 오픈 API의 주소를 가져온다.
-		String naverApiUrl = "https://naveropenapi.apigw.ntruss.com/map-geocode/v2/geocode?query=";
+		// String naverApiUrl = "https://naveropenapi.apigw.ntruss.com/map-geocode/v2/geocode?query=";
 		// 네이버 클라우드 플랫폼을 만들었을 때의 클라이언트id, secret key를 담을 변수를 선언한다.
 		// 절대 이 부분은 git에 commit 후 merge시 공개하지 않는다.
 		// 개인정보 유출의 위험이 있기 때문이다.
 		
+		/*
 		String clientId = "네이버 클라우드 플랫폼에서 application 등록시 발급받은 클라이언트id";		// 네이버 클라우드 플랫폼에서 application 등록시 발급받은 클라이언트id
 		String clientSecretKey = "네이버 클라우드 플랫폼에서 application 등록시 발급받은 secret key";	// 네이버 클라우드 플랫폼에서 application 등록시 발급받은 secret key
+		*/
 		
 		// 키보드로부터 주소를 입력받는다.
 		// BufferedReader -> 문자 Stream, System.in -> byte Stream
@@ -39,7 +65,7 @@ public class NaverGeocodingAPI {
 			// 그러므로 UTF-8로 입력한 주소를 변환시켜준다.
 			String tranAddress = URLEncoder.encode(inputAddress, "UTF-8");
 			// 연결 요청 URL을 만든다.
-			String requestUrl = naverApiUrl + tranAddress;
+			String requestUrl = NAVER_GEOCODING_API_URL + tranAddress;
 			
 			// requestUrl이 정확한 URL인지 아닌지 알아본다.(얘가 제대로된 URL인지 어디 나사 하나 빠진 URL인지 검사)
 			// 잘못된 URL이면 "Welcome to URLException 에러 호출.
@@ -49,8 +75,8 @@ public class NaverGeocodingAPI {
 			// 네이버 클라우드 플랫폼의 Geocoding application이 API URL을 GET방식으로 지원
 			connection.setRequestMethod("GET");
 			// 요청 헤더로 클라이언트id, secret key를 보내준다.
-			connection.setRequestProperty("X-NCP-APIGW-API-KEY-ID", clientId);
-			connection.setRequestProperty("X-NCP-APIGW-API-KEY", clientSecretKey);
+			connection.setRequestProperty("X-NCP-APIGW-API-KEY-ID", this.clientId);
+			connection.setRequestProperty("X-NCP-APIGW-API-KEY", this.clientSecretKey);
 			// System.out.println("connection => " + connection);
 			
 			// connection 변수에 setting한 3개의 정보가 connection이 성공적으로 되면
