@@ -162,7 +162,7 @@ public class NaverMapAPI implements ActionListener {
 			// String url = "https://naveropenapi.apigw.ntruss.com/map-static/v2/raster?";
 			String url = NaverUrlConstants.NAVER_STATIC_MAP_URL;
 			url += "center=" + addressVO.getX() + "," + addressVO.getY();
-			url += "&level=16&w=700&h=500";
+			url += "&level=16&w=700&h=500&public_transit&maptype=terrain";
 			url += "&markers=type:t|size:mid|pos:" + position + "|label:" + URLEncoder.encode(addressVO.getRoadAddress() , "UTF-8");
 			// System.out.println("11111");
 			URL connectedUrl = new URL(url);
