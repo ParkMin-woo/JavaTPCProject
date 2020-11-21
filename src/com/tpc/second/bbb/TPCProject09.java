@@ -10,6 +10,7 @@ public class TPCProject09 {
 		String clientSecretKey = "네이버 클라우드 플랫폼에서 application 등록시 발급받은 secret key";
 		InitGUI initGUI = new InitGUI(clientId , clientSecretKey);
 		initGUI.initGUI();
+		
 	}
 
 }
