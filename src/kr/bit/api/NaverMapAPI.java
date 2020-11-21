@@ -25,10 +25,25 @@ import kr.bit.structure.AddressVO;
 public class NaverMapAPI implements ActionListener {
 	
 	private InitGUI initGUI;
+	private String clientId;
+	private String clientSecretKey;
 
 	public NaverMapAPI(InitGUI initGUI) {
 		// TODO Auto-generated constructor stub
 		this.initGUI = initGUI;
+	}
+
+	public NaverMapAPI(InitGUI initGUI, String clientId, String clientSecretKey) {
+		// TODO Auto-generated constructor stub
+		this.initGUI = initGUI;
+		this.clientId = clientId;
+		this.clientSecretKey = clientSecretKey;
+		/*
+		System.out.println("===== NaverMapAPI 객체를  생성하면서 파라미터에 세팅된 값들 =====");
+		System.out.println("this.initGUI => " + this.initGUI);
+		System.out.println("this.clientId => " + this.clientId);
+		System.out.println("this.clientSecretKey => " + this.clientSecretKey);
+		*/
 	}
 
 	// @SuppressWarnings("null")
@@ -36,20 +51,18 @@ public class NaverMapAPI implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
 
-		String clientId = "qrp9o1edcq";		// 네이버 클라우드 플랫폼에서 application 등록시 발급받은 클라이언트id
-		String clientSecretKey = "s7gz4k8Zt2rUhdDs3dWten40KltUOKgCD0EMqRkw";	// 네이버 클라우드 플랫폼에서 application 등록시 발급받은 secret key
+		// String clientId = "네이버 클라우드 플랫폼에서 application 등록시 발급받은 클라이언트id";		// 네이버 클라우드 플랫폼에서 application 등록시 발급받은 클라이언트id
+		// String clientSecretKey = "네이버 클라우드 플랫폼에서 application 등록시 발급받은 secret key";	// 네이버 클라우드 플랫폼에서 application 등록시 발급받은 secret key
 		AddressVO addressVO = null;
 		try {
-			// 주소를 입력받는다.
-			// System.out.print("주소를 입력하세요. : ");
-			// 주소는 inputDataReader에서 읽어들인다.
-			// readLine() -> 주소를 한 줄 단위로 읽어들인다.
-			String address = initGUI.address.getText();
+			// InitGUI 객체 내부에 있는 address를 읽어서 String address 변수에 저장.
+			String address = this.initGUI.address.getText();
 			// 주소에는 공백이 들어가 있는데, 공백은 컴퓨터 프로그램이 못읽어들인다.
 			// 그러므로 UTF-8로 입력한 주소를 변환시켜준다.
 			String tranAddress = URLEncoder.encode(address, "UTF-8");
 			// 연결 요청 URL을 만든다.
-			String requestUrl = "https://naveropenapi.apigw.ntruss.com/map-geocode/v2/geocode?query=" + tranAddress;
+			// String requestUrl = "https://naveropenapi.apigw.ntruss.com/map-geocode/v2/geocode?query=" + tranAddress;
+			String requestUrl = NaverUrlConstants.NAVER_GEOCODING_URL + tranAddress;
 			
 			// requestUrl이 정확한 URL인지 아닌지 알아본다.(얘가 제대로된 URL인지 어디 나사 하나 빠진 URL인지 검사)
 			// 잘못된 URL이면 "Welcome to URLException 에러 호출.
@@ -59,8 +72,8 @@ public class NaverMapAPI implements ActionListener {
 			// 네이버 클라우드 플랫폼의 Geocoding application이 API URL을 GET방식으로 지원
 			connection.setRequestMethod("GET");
 			// 요청 헤더로 클라이언트id, secret key를 보내준다.
-			connection.setRequestProperty("X-NCP-APIGW-API-KEY-ID", clientId);
-			connection.setRequestProperty("X-NCP-APIGW-API-KEY", clientSecretKey);
+			connection.setRequestProperty("X-NCP-APIGW-API-KEY-ID", this.clientId);
+			connection.setRequestProperty("X-NCP-APIGW-API-KEY", this.clientSecretKey);
 			// System.out.println("connection => " + connection);
 			
 			// connection 변수에 setting한 3개의 정보가 connection이 성공적으로 되면
@@ -116,11 +129,13 @@ public class NaverMapAPI implements ActionListener {
 			// return addressArray;
 			for( int i = 0 ; i < addressArray.length() ; i++ ) {
 				JSONObject addresses = (JSONObject) addressArray.get(i);
+				/*
 				System.out.println("도로명주소 : " + addresses.get("roadAddress"));
 				System.out.println("지번주소 : " + addresses.get("jibunAddress"));
 				System.out.println("영문주소 : " + addresses.get("englishAddress"));
 				System.out.println("위도 : " + addresses.get("x"));
 				System.out.println("경도 : " + addresses.get("y"));
+				*/
 				// System.out.println("addresses : " + addresses.toString(2));
 				addressVO = new AddressVO();
 				addressVO.setRoadAddress((String) addresses.get("roadAddress"));
@@ -139,13 +154,13 @@ public class NaverMapAPI implements ActionListener {
 	}
 
 	private void mapService(AddressVO addressVO) {
-
-		String clientId = "qrp9o1edcq";		// 네이버 클라우드 플랫폼에서 application 등록시 발급받은 클라이언트id
-		String clientSecretKey = "s7gz4k8Zt2rUhdDs3dWten40KltUOKgCD0EMqRkw";	// 네이버 클라우드 플랫폼에서 application 등록시 발급받은 secret key
+		// String clientId = "네이버 클라우드 플랫폼에서 application 등록시 발급받은 클라이언트id";		// 네이버 클라우드 플랫폼에서 application 등록시 발급받은 클라이언트id
+		// String clientSecretKey = "네이버 클라우드 플랫폼에서 application 등록시 발급받은 secret key";	// 네이버 클라우드 플랫폼에서 application 등록시 발급받은 secret key
 		// TODO Auto-generated method stub
 		try {
 			String position = URLEncoder.encode(addressVO.getX() + " " + addressVO.getY(), "UTF-8");
-			String url = "https://naveropenapi.apigw.ntruss.com/map-static/v2/raster?";
+			// String url = "https://naveropenapi.apigw.ntruss.com/map-static/v2/raster?";
+			String url = NaverUrlConstants.NAVER_STATIC_MAP_URL;
 			url += "center=" + addressVO.getX() + "," + addressVO.getY();
 			url += "&level=16&w=700&h=500";
 			url += "&markers=type:t|size:mid|pos:" + position + "|label:" + URLEncoder.encode(addressVO.getRoadAddress() , "UTF-8");
@@ -154,8 +169,8 @@ public class NaverMapAPI implements ActionListener {
 			// System.out.println("22222");
 			HttpURLConnection connection = (HttpURLConnection) connectedUrl.openConnection();
 			connection.setRequestMethod("GET");
-			connection.setRequestProperty("X-NCP-APIGW-API-KEY-ID", clientId);
-			connection.setRequestProperty("X-NCP-APIGW-API-KEY", clientSecretKey);
+			connection.setRequestProperty("X-NCP-APIGW-API-KEY-ID", this.clientId);
+			connection.setRequestProperty("X-NCP-APIGW-API-KEY", this.clientSecretKey);
 			
 			int responseCode = connection.getResponseCode();
 			if(responseCode == 200) {
@@ -173,12 +188,12 @@ public class NaverMapAPI implements ActionListener {
 				inputStream.close();
 				
 				ImageIcon imageIcon = new ImageIcon(file.getName());
-				initGUI.imageLabel.setIcon(imageIcon);
-				initGUI.roadAddress.setText(addressVO.getRoadAddress());
-				initGUI.jibunAddress.setText(addressVO.getJibunAddress());
-				initGUI.englishAddress.setText(addressVO.getEnglishAddress());
-				initGUI.x.setText(addressVO.getX());
-				initGUI.y.setText(addressVO.getY());
+				this.initGUI.imageLabel.setIcon(imageIcon);
+				this.initGUI.roadAddress.setText(addressVO.getRoadAddress());
+				this.initGUI.jibunAddress.setText(addressVO.getJibunAddress());
+				this.initGUI.englishAddress.setText(addressVO.getEnglishAddress());
+				this.initGUI.x.setText(addressVO.getX());
+				this.initGUI.y.setText(addressVO.getY());
 			}
 			else {
 				BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(connection.getErrorStream()));
