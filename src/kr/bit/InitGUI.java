@@ -10,7 +10,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-import kr.bit.api.NaverMapAPI;
+import kr.bit.api.naver.NaverMapAPI;
 import kr.bit.structure.NaverClientKey;
 
 public class InitGUI extends NaverClientKey {

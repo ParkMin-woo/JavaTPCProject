@@ -1,4 +1,4 @@
-package kr.bit.api;
+package kr.bit.api.naver;
 
 import java.io.BufferedReader;
 import java.io.File;

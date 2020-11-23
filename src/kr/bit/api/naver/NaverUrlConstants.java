@@ -1,4 +1,4 @@
-package kr.bit.api;
+package kr.bit.api.naver;
 
 
 // 네이버 URL을 저장해두는 객체를 하나 생성(NaverUrlConstants)
