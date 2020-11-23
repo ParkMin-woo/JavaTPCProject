@@ -1,4 +1,4 @@
-package kr.bit.api;
+package kr.bit.api.naver;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;

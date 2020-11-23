@@ -3,13 +3,13 @@ package com.tpc.second.bbb;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import kr.bit.api.NaverGeocodingAPI;
-import kr.bit.api.NaverStaticMapAPI;
+import kr.bit.api.naver.NaverGeocodingAPI;
+import kr.bit.api.naver.NaverStaticMapAPI;
 
 public class TPCProject08 {
 	public static void main(String[] args) {
-		String clientId = "qrp9o1edcq";		// 네이버 클라우드 플랫폼에서 application 등록시 발급받은 클라이언트id
-		String clientSecretKey = "s7gz4k8Zt2rUhdDs3dWten40KltUOKgCD0EMqRkw";	// 네이버 클라우드 플랫폼에서 application 등록시 발급받은 secret key
+		String clientId = "네이버 클라우드 플랫폼에서 application 등록시 발급받은 클라이언트id";		// 네이버 클라우드 플랫폼에서 application 등록시 발급받은 클라이언트id
+		String clientSecretKey = "네이버 클라우드 플랫폼에서 application 등록시 발급받은 secret key";	// 네이버 클라우드 플랫폼에서 application 등록시 발급받은 secret key
 		
 		NaverGeocodingAPI geoCodingApi = new NaverGeocodingAPI(clientId, clientSecretKey);
 		JSONArray addressJsonArray = geoCodingApi.geocodingAPI();
