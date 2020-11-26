@@ -20,7 +20,7 @@ public class TPCProject12 {
 		// try catch문을 이용하여 예외처리를 한다.
 		// 주소를 입력받는다.
 		try {
-			System.out.print("[입력 -> 년(YYYY)-월(MM)-일(DD)] : ");
+			System.out.print("[입력 -> YYYYMMDD] : ");
 			String bibleDate = inputDataReader.readLine();
 			// String YYYYMMDD = "(19|20)\\d{2}(0[1-9]|1[012])(0[1-9]|[12][0-9]|3[01])";
 			// System.out.println(bibleDate == YYYYMMDD);
@@ -44,7 +44,7 @@ public class TPCProject12 {
 				String bibleTextStr = bible_text.text();
 				System.out.println(bibleTextStr);
 				Element dailybible_info = doc.select("#dailybible_info").first();
-				String dailybibleInfoStr = dailybible_info.ownText();
+				String dailybibleInfoStr = dailybible_info.text();
 				System.out.println(dailybibleInfoStr);
 				Element bibleinfo_box = doc.select(".bibleinfo_box").first();
 				String bibleinfoBoxStr = bibleinfo_box.text();
