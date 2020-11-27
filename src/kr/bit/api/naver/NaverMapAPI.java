@@ -19,21 +19,21 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 import org.json.JSONTokener;
 
-import kr.bit.InitGUI;
+import kr.bit.gui.InitGUINaver;
 import kr.bit.structure.AddressVO;
 
 public class NaverMapAPI implements ActionListener {
 	
-	private InitGUI initGUI;
+	private InitGUINaver initGUI;
 	private String clientId;
 	private String clientSecretKey;
 
-	public NaverMapAPI(InitGUI initGUI) {
+	public NaverMapAPI(InitGUINaver initGUI) {
 		// TODO Auto-generated constructor stub
 		this.initGUI = initGUI;
 	}
 
-	public NaverMapAPI(InitGUI initGUI, String clientId, String clientSecretKey) {
+	public NaverMapAPI(InitGUINaver initGUI, String clientId, String clientSecretKey) {
 		// TODO Auto-generated constructor stub
 		this.initGUI = initGUI;
 		this.clientId = clientId;

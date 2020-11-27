@@ -1,4 +1,4 @@
-package kr.bit;
+package kr.bit.gui;
 
 import java.awt.BorderLayout;
 import java.awt.Container;
@@ -13,7 +13,7 @@ import javax.swing.JTextField;
 import kr.bit.api.naver.NaverMapAPI;
 import kr.bit.structure.NaverClientKey;
 
-public class InitGUI extends NaverClientKey {
+public class InitGUINaver extends NaverClientKey {
 	public JTextField address;	// 실제 창이 뜨면 주소를 입력받는 변수
 	public JLabel roadAddress, jibunAddress, englishAddress, x, y, imageLabel;	// 주소를 검색하면 지도 밑에 뿌려줄 변수들을 담고 있음.
 																				// Naver geocoding API에서 가져온 JSON 요소들을 담고 있다.
@@ -21,7 +21,7 @@ public class InitGUI extends NaverClientKey {
 	 * @param clientId
 	 * @param clientSecretKey
 	 */
-	public InitGUI(String clientId, String clientSecretKey) {
+	public InitGUINaver(String clientId, String clientSecretKey) {
 		super(clientId, clientSecretKey);
 		// TODO Auto-generated constructor stub
 		// System.out.println("clientId => " + clientId);
