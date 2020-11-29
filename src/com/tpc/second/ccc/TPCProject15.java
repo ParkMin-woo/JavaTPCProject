@@ -21,10 +21,30 @@ public class TPCProject15 {
 			
 			Elements today_menu_list_id = doc.select("#today_menu_list");
 			// System.out.println(today_menu_list_id);
-			
-			Element breakfastClass = today_menu_list_id.select(".menu_list_icon02 > span").first();
+
+			Element breakfastClass = today_menu_list_id.select("#today_menu_list01").select(".menu_list_icon02 > span").first();
+			// System.out.println(breakfastClass);
 			String breakfast = breakfastClass.text();
 			System.out.println(breakfast);
+			Element breakfastMenuClass = today_menu_list_id.select("#today_menu_list01").select(".today_menu_list01_box02 > div").first();
+			String breakfastMenu = breakfastMenuClass.text();
+			System.out.println(breakfastMenu);
+			Element lunchClass = today_menu_list_id.select(".today_menu_list02").select(".menu_list_icon02 > span").first();
+			// System.out.println(lunchClass);
+			String lunch = lunchClass.text();
+			System.out.println(lunch);
+			Element lunchMenuClass = today_menu_list_id.select(".today_menu_list02").select(".today_menu_list01_box02 > div").first();
+			String lunchMenu = lunchMenuClass.text();
+			System.out.println(lunchMenu);
+			Element dinnerClass = today_menu_list_id.select(".today_menu_list02").select(".today_menu_list01_box01").select(".menu_list_icon02 > span").first();
+			System.out.println(dinnerClass);
+			/*
+			String lunch = lunchClass.text();
+			System.out.println(lunch);
+			Element lunchMenuClass = today_menu_list_id.select(".today_menu_list02").select(".today_menu_list01_box02 > div").first();
+			String lunchMenu = lunchMenuClass.text();
+			System.out.println(lunchMenu);
+			*/
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
