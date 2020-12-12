@@ -26,13 +26,15 @@ public class TPCProject16 {
 		String filePath = "C:/JavaTPC/newWorkspace/JavaTPCProject/src/kr/bit/file/bookList.xlsx";
 		
 		List<ExcelVO> bookList = new ArrayList<ExcelVO>();
+		System.out.println("try 진입 전 1111111111");
 		// try (FileInputStream fis = new FileInputStream(filePath)) {
 		// try (POIFSFileSystem fis = new POIFSFileSystem(new FileInputStream(filePath))) {
-		// try(OPCPackage opcPackage = OPCPackage.open(new File(filePath));) {
+		// try(OPCPackage fis = OPCPackage.open(new File(filePath));) {
 		try (FileInputStream fis = new FileInputStream(new File(filePath))) {
-			System.out.println("try 진입");
+			System.out.println("try 진입 1111111111");
 			// HSSFWorkbook workbook = new HSSFWorkbook(fis);
 			XSSFWorkbook workbook = new XSSFWorkbook(fis);
+			System.out.println("try 진입 222222222");
 			// opcPackage.close();
 			// HSSFSheet sheet = workbook.getSheetAt(0);
 			XSSFSheet sheet = workbook.getSheetAt(0);
