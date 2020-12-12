@@ -12,6 +12,8 @@ import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.openxml4j.opc.OPCPackage;
 import org.apache.poi.poifs.filesystem.POIFSFileSystem;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.xssf.usermodel.XSSFCell;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
@@ -38,13 +40,15 @@ public class TPCProject16 {
 			// opcPackage.close();
 			// HSSFSheet sheet = workbook.getSheetAt(0);
 			XSSFSheet sheet = workbook.getSheetAt(0);
-			Iterator rows = sheet.rowIterator();
+			// Iterator rows = sheet.rowIterator();
+			Iterator<Row> rows = sheet.rowIterator();
 			String[] excelColumn = new String[5];
 			rows.next();
 			while(rows.hasNext()) {
 				// HSSFRow row = (HSSFRow) rows.next();
 				XSSFRow row = (XSSFRow) rows.next();
-				Iterator cells = row.cellIterator();
+				// Iterator cells = row.cellIterator();
+				Iterator<Cell> cells = row.cellIterator();
 				int i = 0;
 				while(cells.hasNext()) {
 					// HSSFCell cell = (HSSFCell) cells.next();
