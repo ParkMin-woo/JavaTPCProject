@@ -31,7 +31,17 @@ public class ExcelVO {
 		this.imageUrl = imageUrl;
 	}
 
-
+	/**
+	 * @param title
+	 * @param author
+	 * @param company
+	 */
+	public ExcelVO(String title, String author, String company) {
+		super();
+		this.title = title;
+		this.author = author;
+		this.company = company;
+	}
 
 	/**
 	 * @return the title
