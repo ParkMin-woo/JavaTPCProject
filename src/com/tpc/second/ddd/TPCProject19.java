@@ -23,6 +23,7 @@ import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
 
 import kr.bit.structure.ExcelVO;
 
@@ -57,6 +58,9 @@ public class TPCProject19 {
 			e.printStackTrace();
 		}
 		// System.out.println("bookList => \n" + bookList);
+		// 메서드의 parameter를 List형으로 하면
+		// for문 돌 때, 맨 처음의 데이터만 읽어오고
+		// 나머지 데이터들은 읽어오지 못하는 현상이 발생함...
 		// showIsbnAndImage(bookList);
 		for(ExcelVO bookElement : bookList) {
 			showIsbnAndImage(bookElement);
@@ -70,7 +74,7 @@ public class TPCProject19 {
 		String clientSecret = "clientSecret";
 		try {
 			// for(ExcelVO dataElement : dataList) {
-				System.out.println("dataElement => \n" + dataElement);
+				System.out.println("dataElement1 => " + dataElement);
 				URL_SEARCH_BOOK = URL_SEARCH_BOOK
 				+ "d_titl=" + URLEncoder.encode(dataElement.getTitle(), "UTF-8")
 				+ "&d_auth=" + URLEncoder.encode(dataElement.getAuthor(), "UTF-8")
@@ -104,9 +108,37 @@ public class TPCProject19 {
 				while((readLine = responseXmlReader.readLine()) != null) {
 					responseXml.append(readLine);
 				}
-				System.out.println(responseXml.toString());
+				// System.out.println(responseXml.toString());
 				responseXmlReader.close();
 				// System.out.println(responseXml.toString());
+				
+				Document document = Jsoup.parse(responseXml.toString());
+				Element totalElement = document.select("total").first();
+				// System.out.println(totalElement);
+				if(!(totalElement.text().equals("0"))) {
+					Element isbnElement = document.select("isbn").first();
+					String isbn = isbnElement.text();
+					isbn = isbn.split(" ")[1];
+					// System.out.println(isbn);
+					// Element imageElement = document.select("img").first();
+					// System.out.println(imageElement);
+					// String image = imageElement.text();
+					// System.out.println(image.toString());
+					// image = image.substring(0);
+					// System.out.println(image);
+					String imageTag = document.toString().substring(document.toString().indexOf("<img>") + 5);
+					// System.out.println(imageTag);
+					String img = imageTag.substring(0, imageTag.indexOf("?"));
+					// System.out.println(img);
+					String imgFileName = img.substring(img.lastIndexOf("/") + 1);
+					// System.out.println(imgFileName);
+					dataElement.setIsbn(isbn);
+					dataElement.setImageUrl(imgFileName);
+					System.out.println("dataElement2 => " + dataElement);
+				}	// if
+				else {
+					System.out.println("검색데이터가 존재하지 않습니다.");
+				}
 			// }// for
 		} catch (Exception e) {
 			e.printStackTrace();
