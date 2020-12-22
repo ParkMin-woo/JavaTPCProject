@@ -33,54 +33,46 @@ public class TPCProject19 {
 		String filePath = "C:/JavaTPC/newWorkspace/JavaTPCProject/src/kr/bit/file/bookList.xlsx";
 		
 		List<ExcelVO> bookList = new ArrayList<ExcelVO>();
-		// try (FileInputStream fis = new FileInputStream(filePath)) {
-		// try (POIFSFileSystem fis = new POIFSFileSystem(new FileInputStream(filePath))) {
-		// try(OPCPackage fis = OPCPackage.open(new File(filePath));) {
 		try (FileInputStream fis = new FileInputStream(new File(filePath))) {
-			// HSSFWorkbook workbook = new HSSFWorkbook(fis);
 			XSSFWorkbook workbook = new XSSFWorkbook(fis);
-			// opcPackage.close();
-			// HSSFSheet sheet = workbook.getSheetAt(0);
 			XSSFSheet sheet = workbook.getSheetAt(0);
-			// Iterator rows = sheet.rowIterator();
 			Iterator<Row> rows = sheet.rowIterator();
 			String[] excelColumn = new String[5];
 			rows.next();
 			while(rows.hasNext()) {
-				// HSSFRow row = (HSSFRow) rows.next();
 				XSSFRow row = (XSSFRow) rows.next();
-				// Iterator cells = row.cellIterator();
 				Iterator<Cell> cells = row.cellIterator();
 				int i = 0;
 				while(cells.hasNext()) {
-					// HSSFCell cell = (HSSFCell) cells.next();
 					XSSFCell cell = (XSSFCell) cells.next();
 					excelColumn[i] = cell.toString();
 					i++;
 				}	// while
+				
+				// ExcelVO(String title, String author, String company, String isbn, String imageUrl)
 				ExcelVO vo = new ExcelVO(excelColumn[0] , excelColumn[1] , excelColumn[2] , excelColumn[3] , excelColumn[4]);
 				bookList.add(vo);
 			}	// while
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
-		// showExcelData(bookList);
-		showIsbnAndImage(bookList);
+		// System.out.println("bookList => \n" + bookList);
+		// showIsbnAndImage(bookList);
+		for(ExcelVO bookElement : bookList) {
+			showIsbnAndImage(bookElement);
+		}
 	}
 	
-	private static void showIsbnAndImage(List<ExcelVO> dataList) {
+	// private static void showIsbnAndImage(List<ExcelVO> dataList) {
+	private static void showIsbnAndImage(ExcelVO dataElement) {
 		String URL_SEARCH_BOOK = "https://openapi.naver.com/v1/search/book_adv.xml?";
 		String clientId = "clientId";
 		String clientSecret = "clientSecret";
 		try {
-			for(ExcelVO dataElement : dataList) {
-				System.out.println(dataElement);
-				// System.out.println("dataElement.getTitle() => " + dataElement.getTitle());
-				// System.out.println("dataElement.getAuthor() => " + dataElement.getAuthor());
-				// System.out.println("dataElement.getCompany() => " + dataElement.getCompany());
+			// for(ExcelVO dataElement : dataList) {
+				System.out.println("dataElement => \n" + dataElement);
 				URL_SEARCH_BOOK = URL_SEARCH_BOOK
-				+ "d_titl="+ URLEncoder.encode(dataElement.getTitle(), "UTF-8")
+				+ "d_titl=" + URLEncoder.encode(dataElement.getTitle(), "UTF-8")
 				+ "&d_auth=" + URLEncoder.encode(dataElement.getAuthor(), "UTF-8")
 				+ "&d_publ=" + URLEncoder.encode(dataElement.getCompany(), "UTF-8");
 				// System.out.println("URL_SEARCH_BOOK => " + URL_SEARCH_BOOK);
@@ -95,8 +87,6 @@ public class TPCProject19 {
 				connection.setRequestProperty("X-Naver-Client-Secret", clientSecret);
 				// }
 				int responseCode = connection.getResponseCode();
-				// System.out.println("responseCode => " + responseCode);
-				// System.out.println(connection.getResponseMessage());
 				BufferedReader responseXmlReader;	// = new BufferedReader(in)
 				if(responseCode == 200) {
 					// 성공이면 responseJsonReader 변수에 연결되어있는 connection에 String형 데이터를 얻어와야 한다.
@@ -109,21 +99,15 @@ public class TPCProject19 {
 					System.out.println("error 발생!");
 					responseXmlReader = new BufferedReader(new InputStreamReader(connection.getErrorStream()));
 				}
-				// System.out.println(responseXmlReader.toString());
-				// Document doc = Jsoup.parse(responseXmlReader.toString());
-				// System.out.println(doc.toString());
-				// System.out.println("responseXmlReader => " + responseXmlReader);
-				// Document doc = Jsoup.parse(responseXmlReader.toString());
-				// System.out.println("doc.toString() => " + doc.toString());
 				String readLine;
 				StringBuffer responseXml = new StringBuffer();
 				while((readLine = responseXmlReader.readLine()) != null) {
 					responseXml.append(readLine);
 				}
-				
-				responseXmlReader.close();
 				System.out.println(responseXml.toString());
-			}
+				responseXmlReader.close();
+				// System.out.println(responseXml.toString());
+			// }// for
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
