@@ -53,15 +53,15 @@ public class ExcelDAO {
 			XSSFCell cellA = rowA.createCell(0);
 			cellA.setCellValue(new XSSFRichTextString("책제목"));
 			XSSFCell cellB = rowA.createCell(1);
-			cellA.setCellValue(new XSSFRichTextString("저자"));
+			cellB.setCellValue(new XSSFRichTextString("저자"));
 			XSSFCell cellC = rowA.createCell(2);
-			cellA.setCellValue(new XSSFRichTextString("출판사"));
+			cellC.setCellValue(new XSSFRichTextString("출판사"));
 			XSSFCell cellD = rowA.createCell(3);
-			cellA.setCellValue(new XSSFRichTextString("ISBN"));
+			cellD.setCellValue(new XSSFRichTextString("ISBN"));
 			XSSFCell cellE = rowA.createCell(4);
-			cellA.setCellValue(new XSSFRichTextString("이미지이름"));
+			cellE.setCellValue(new XSSFRichTextString("이미지이름"));
 			XSSFCell cellF = rowA.createCell(5);
-			cellA.setCellValue(new XSSFRichTextString("이미지"));
+			cellF.setCellValue(new XSSFRichTextString("이미지"));
 			
 			int i = 1;
 			while(true) {
@@ -71,7 +71,7 @@ public class ExcelDAO {
 				String author = br.readLine();
 				System.out.print("출판사 : ");
 				String company = br.readLine();
-				XSSFRow rowRal = firstSheet.createRow(1);
+				XSSFRow rowRal = firstSheet.createRow(i);
 				XSSFCell cellTitle = rowRal.createCell(0);
 				cellTitle.setCellValue(new XSSFRichTextString(title));
 				XSSFCell cellAuthor = rowRal.createCell(1);
@@ -100,50 +100,52 @@ public class ExcelDAO {
 		String excelFilePath = "C:/JavaTPC/newWorkspace/JavaTPCProject/src/kr/bit/file/myExcelPractice.xlsx";
 		try {
 			XSSFSheet sheet = wb.getSheetAt(0);
-			Iterator rows = sheet.rowIterator();
-			rows.next();
-			int i = 0;	// list의 index
-			while(rows.hasNext()) {
-				XSSFRow row = (XSSFRow) rows.next();
-				XSSFCell cell = row.createCell(3);
-				cell.setCellType(CellType.STRING);
-				cell.setCellValue(excelList.get(i).getIsbn());
-				
-				cell = row.createCell(4);
-				cell.setCellType(CellType.STRING);
-				cell.setCellValue(excelList.get(i).getImageUrl());
-				
-				InputStream inputStream = new FileInputStream(excelList.get(i).getImageUrl());
-				byte[] bytes = IOUtils.toByteArray(inputStream);
-				int pictureIndex = wb.addPicture(bytes, Workbook.PICTURE_TYPE_JPEG);
-				inputStream.close();
-				
-				CreationHelper creationHelper = wb.getCreationHelper();
-				Drawing drawing = sheet.createDrawingPatriarch();
-				
-				ClientAnchor clientAnchor = creationHelper.createClientAnchor();
-				
-				clientAnchor.setCol1(5);	// Column B
-				clientAnchor.setRow1(i+1);	// Row3
-				clientAnchor.setCol2(6);	// Column C
-				clientAnchor.setRow2(i+2);	// Row4
-				
-				Picture picture = drawing.createPicture(clientAnchor, pictureIndex);
-				
-				Cell cellImg = row.createCell(5);
-				// set width to n character widths = count characters * 256
-				int widthUnits = 20*256;
-				sheet.setColumnWidth(5, widthUnits);
-				// set height to n points in twips = n*20
-				short heightUnits = 120*20;
-				cellImg.getRow().setHeight(heightUnits);
-				i++;
-			}	// while
+			if(wb != null && sheet != null) {
+				Iterator rows = sheet.rowIterator();
+				rows.next();
+				int i = 0;	// list의 index
+				while(rows.hasNext()) {
+					XSSFRow row = (XSSFRow) rows.next();
+					XSSFCell cell = row.createCell(3);
+					cell.setCellType(CellType.STRING);
+					cell.setCellValue(excelList.get(i).getIsbn());
+					
+					cell = row.createCell(4);
+					cell.setCellType(CellType.STRING);
+					cell.setCellValue(excelList.get(i).getImageUrl());
+					
+					InputStream inputStream = new FileInputStream(excelList.get(i).getImageUrl());
+					byte[] bytes = IOUtils.toByteArray(inputStream);
+					int pictureIndex = wb.addPicture(bytes, Workbook.PICTURE_TYPE_JPEG);
+					inputStream.close();
+					
+					CreationHelper creationHelper = wb.getCreationHelper();
+					Drawing drawing = sheet.createDrawingPatriarch();
+					
+					ClientAnchor clientAnchor = creationHelper.createClientAnchor();
+					
+					clientAnchor.setCol1(5);	// Column B
+					clientAnchor.setRow1(i+1);	// Row3
+					clientAnchor.setCol2(6);	// Column C
+					clientAnchor.setRow2(i+2);	// Row4
+					
+					Picture picture = drawing.createPicture(clientAnchor, pictureIndex);
+					
+					Cell cellImg = row.createCell(5);
+					// set width to n character widths = count characters * 256
+					int widthUnits = 20*256;
+					sheet.setColumnWidth(5, widthUnits);
+					// set height to n points in twips = n*20
+					short heightUnits = 120*20;
+					cellImg.getRow().setHeight(heightUnits);
+					i++;
+				}	// while
 			
-			FileOutputStream fos = new FileOutputStream(excelFilePath);
-			wb.write(fos);
-			fos.close();
-			System.out.println("ISBN, ImageURL 저장성공!!!");
+				FileOutputStream fos = new FileOutputStream(excelFilePath);
+				wb.write(fos);
+				fos.close();
+				System.out.println("ISBN, ImageURL 저장성공!!!");
+			}
 		}
 		catch (Exception e) {
 			e.printStackTrace();
