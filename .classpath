@@ -19,5 +19,6 @@
 	<classpathentry kind="lib" path="C:/JavaTPC/lib/poi-ooxml-3.17.jar"/>
 	<classpathentry kind="lib" path="C:/JavaTPC/lib/poi-excelant-3.17.jar"/>
 	<classpathentry kind="lib" path="C:/JavaTPC/lib/poi-3.17.jar"/>
+	<classpathentry kind="lib" path="C:/JavaTPC/lib/itextpdf-5.5.13.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
