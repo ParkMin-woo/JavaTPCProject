@@ -113,6 +113,7 @@ public class TPCProject19 {
 				// System.out.println(responseXml.toString());
 				
 				Document document = Jsoup.parse(responseXml.toString());
+				// System.out.println(document.toString());
 				Element totalElement = document.select("total").first();
 				// System.out.println(totalElement);
 				if(!(totalElement.text().equals("0"))) {
